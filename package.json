@@ -8,9 +8,11 @@
   },
   "dependencies": {
     "@sap/cds": "latest",
+    "@sap/edm-converters": "latest",
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "@sap/edm-converters": "^1.0.19",
     "sqlite3": "^4.0.9"
   }
 }

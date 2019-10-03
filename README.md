@@ -1,3 +1,5 @@
+./node_modules\@sap\edm-converters\lib\edmToCsn\README.md
+
 # Simple BUPA Mock Service
 
 ## Description
