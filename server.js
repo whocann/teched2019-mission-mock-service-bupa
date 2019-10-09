@@ -1,10 +1,14 @@
 const express = require('express')
 const cds = require('@sap/cds')
+//odata v2 adapter
+const odatav2proxy = require("@sap/cds-odata-v2-adapter-proxy")
 
-const { PORT=3000 } = process.env
+const { PORT=3001 } = process.env
 const app = express()
 
 cds.serve('all').in(app)
+//odata v2 adapter
+app.use(odatav2proxy({ port: PORT }))
 
 app.listen (PORT, ()=> console.info(`server listening on http://localhost:${PORT}`))
 
@@ -44,3 +48,17 @@ cds.deploy('srv').to('sqlite::memory:',{primary:true}) .then (async db => {
   await Promise.all ([addresses])
 
 }) .catch (console.error)
+
+const BusinessPartnerAddress = require('@sap/cloud-sdk-vdm-business-partner-service').BusinessPartnerAddress
+
+BusinessPartnerAddress
+        .requestBuilder()
+        .getAll()
+        .select(
+                BusinessPartnerAddress.BUSINESS_PARTNER,
+                BusinessPartnerAddress.ADDRESS_ID,
+                BusinessPartnerAddress.CITY_NAME,
+        )
+        .execute({url:'http://localhost:3001/v2'})
+        .then(xs => xs.map(x => x.cityName))
+        .then(console.log)

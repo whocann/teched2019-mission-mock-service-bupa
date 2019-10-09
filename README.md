@@ -1,3 +1,4 @@
+ "npm i -D @sap/edm-converters".
 ./node_modules\@sap\edm-converters\lib\edmToCsn\README.md
 
 # Simple BUPA Mock Service
